@@ -12,10 +12,26 @@ public class AcsiApplication {
     }
 
     @RestController
-    class HelloController {
+    class RoleController {
+
         @GetMapping("/")
-        public String hello() {
-            return "Hello, ACSI TP!";
+        public String home() {
+            return "Welcome to the Crèche Management System";
+        }
+
+        @GetMapping("/admin/dashboard")
+        public String admin() {
+            return "Admin Dashboard";
+        }
+
+        @GetMapping("/educator/dashboard")
+        public String educator() {
+            return "Educator Dashboard";
+        }
+
+        @GetMapping("/parent/dashboard")
+        public String parent() {
+            return "Parent Dashboard";
         }
     }
 }
