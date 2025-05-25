@@ -14,7 +14,8 @@ document.getElementById('signup-form').addEventListener('submit', async function
 
   if (response.ok) {
     alert('Sign-up successful!');
-    // Optionally clear signup form
+    // Save role in localStorage for login redirection
+    localStorage.setItem(`role:${username}`, role);
     e.target.reset();
   } else {
     alert('Sign-up failed.');
@@ -25,23 +26,30 @@ document.getElementById('login-form').addEventListener('submit', async function 
   e.preventDefault();
   const username = document.getElementById('login-username').value;
   const password = document.getElementById('login-password').value;
+  const role = localStorage.getItem(`role:${username}`);
 
-  const response = await fetch(`http://localhost:8080/educator/dashboard`, {
+  const statusDiv = document.getElementById('login-status');
+
+  if (!role) {
+    statusDiv.innerHTML = '<div class="alert alert-danger">Role not found. Did you sign up?</div>';
+    return;
+  }
+
+  const authHeader = 'Basic ' + btoa(`${username}:${password}`);
+
+  const response = await fetch(`http://localhost:8080/${role}/dashboard`, {
     headers: {
-      'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+      'Authorization': authHeader
     }
   });
 
-  const statusDiv = document.getElementById('login-status');
   if (response.ok) {
-    // Save credentials to localStorage for future API calls
     localStorage.setItem('auth', `${username}:${password}`);
-
     statusDiv.innerHTML = '<div class="alert alert-success">Login successful</div>';
     e.target.reset();
 
-    // Optionally redirect or trigger post-login action:
-    // window.location.href = '/index.html';  <-- uncomment if needed
+    // Redirect to role-based dashboard
+    // window.location.href = `/${role}/dashboard`;
   } else {
     statusDiv.innerHTML = '<div class="alert alert-danger">Login failed</div>';
   }
