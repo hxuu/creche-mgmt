@@ -5,11 +5,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Map;
 import java.util.Set;
 
 @RestController
+@CrossOrigin(origins = "*") // allow all origins (adjust for production)
 @RequestMapping("/api/auth")
 public class AuthController {
 

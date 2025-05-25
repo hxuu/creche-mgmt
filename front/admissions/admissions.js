@@ -10,7 +10,7 @@ function fetchAdmissions() {
   fetch(admissionApi, { headers: authHeader })
     .then(res => res.json())
     .then(data => {
-      let table = '<table class="table table-bordered"><thead><tr><th>ID</th><th>Child ID</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+      let table = '<table class="table table-bordered"><thead><tr><th>ID</th><th>Child Name</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
       data.forEach(a => {
         table += `<tr>
           <td>${a.id}</td>

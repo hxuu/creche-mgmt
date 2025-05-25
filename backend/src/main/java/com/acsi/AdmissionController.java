@@ -2,10 +2,13 @@ package com.acsi;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*") // allow all origins (adjust for production)
 @RequestMapping("/api/admissions")
 public class AdmissionController {
 
